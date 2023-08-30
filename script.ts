@@ -1,41 +1,15 @@
-// 1. two players game:
-//    1.1. ask the name of first player;
-//    1.1.1. save the input as firstPlayerName;
-//    1.2. ask the name of the srecond playr;
-//    1.2.1. save the input as secondPlayerName;
-//    1.3. define who goes first;
-//    1.4. using while loop ask users to take marches from table;
-//    1.5. the user who have to take the last of matches loose.
-
-// 2. one player game
-//    2. ask user to choose level of difficulty;
-//    2.1. if it's easy:
-//       2.1.1 inside while loop computer takes randome quantity of matches from 1 to 3;
-//       2.1.2. user can take from 1 to 3 matches;
-//       2.1.3 last who takes -- loose;
-
-//    2.2. -//- medium :
-//       2.2.1. inside while loop computer takes randome quantity of matches from 1 to 3;
-//       2.2.2. user can take from 1 to 3 matches;
-//       2.2.3. ????????????
-//    2.3.
-
-//     4. ask player/s for quantity of matches and save it in variable matches
-
 function nimGame() {
   let matches = 13;
 
   function howManyPlayers() {
     const numberOfPlayers = prompt("How many players are playing?");
-    console.log(numberOfPlayers, typeof numberOfPlayers);
 
     switch (numberOfPlayers) {
       case "1":
-        console.log("1");
+        onePlayerGame();
         break;
 
       case "2":
-        console.log("2");
         twoPlayerGame();
         break;
 
@@ -49,7 +23,6 @@ function nimGame() {
   //
 
   function twoPlayerGame() {
-
     let quantityOfMatches: number = Number(
       prompt("How many matches are in the game?")
     );
@@ -89,12 +62,121 @@ function nimGame() {
         }
       }
     }
-    
+
     if (matches === 1) {
       const winner =
         userTurn === firstPlayerName ? secondPlayerName : firstPlayerName;
       alert(`${winner} wins!`);
     }
+  }
+}
+
+function onePlayerGame() {
+  const gameLevel = prompt(
+    "Please select the dificulty level of the game: \n 1. Easy.\n 2. Medium.\n 3. Impossible."
+  );
+
+  const level = gameLevel?.toLowerCase().trim();
+
+  switch (level) {
+    case "1":
+    case "easy":
+      // console.log('easy level');
+      onePlayerGameEasy();
+      break;
+    case "2":
+    case "medium":
+      // console.log('hard level');
+      onePlayerGameMedium();
+      break;
+    case "3":
+    case "impossible":
+      // console.log('impossible level');
+      break;
+    default:
+      // console.log('Default');
+      onePlayerGame();
+  }
+}
+
+function onePlayerGameEasy() {
+  let quantityOfMatches: number = Number(
+    prompt("How many matches are in the game?")
+  );
+
+  if (isNaN(quantityOfMatches) || quantityOfMatches <= 0) {
+    onePlayerGameEasy();
+  } else {
+    matches = quantityOfMatches;
+  }
+
+  let userTurn = "computer";
+
+  while (matches > 1) {
+    alert(`Now it's turn of player ${userTurn}. Matches left ${matches}.`);
+
+    if (userTurn === "computer") {
+      let userTakesMatches = Math.floor(Math.random() * 3 + 1);
+      alert(`Computer takes ${userTakesMatches} matches.`);
+      matches = matches - userTakesMatches;
+      userTurn = "gamer";
+    } else {
+      let userTakesMatches: number = Number(
+        prompt("How many matches do you want to take?")
+      );
+
+      if (userTakesMatches <= 3 && userTakesMatches >= 1) {
+        matches = matches - userTakesMatches;
+        userTurn = "computer";
+      }
+    }
+  }
+
+  if (matches === 1) {
+    const resultOfTheGame =
+      userTurn === "computer" ? "You are win!" : "You are loose.";
+    alert(resultOfTheGame);
+  }
+}
+
+function onePlayerGameMedium() {
+  let quantityOfMatches: number = Number(
+    prompt("How many matches are in the game?")
+  );
+
+  if (isNaN(quantityOfMatches) || quantityOfMatches <= 0) {
+    onePlayerGameEasy();
+  } else {
+    matches = quantityOfMatches;
+  }
+
+  let userTurn = "computer";
+  let turnOfComputer = 1;
+
+  while (matches > 1) {
+    alert(`Now it's turn of player ${userTurn}. Matches left ${matches}.`);
+
+    if (userTurn === "computer" && turnOfComputer === 1) {
+      let userTakesMatches = Math.floor(Math.random() * 3 + 1);
+      alert(`Computer takes ${userTakesMatches} matches.`);
+      matches = matches - userTakesMatches;
+      userTurn = "gamer";
+    } else {
+      let userTakesMatches: number = Number(
+        prompt("How many matches do you want to take?")
+      );
+
+      if (userTakesMatches <= 3 && userTakesMatches >= 1) {
+        matches = matches - userTakesMatches;
+        userTurn = "computer";
+      }
+    }
+  }
+
+  if (matches === 1) {
+    const resultOfTheGame =
+      userTurn === "computer" ? "You are win!" : "You are loose.";
+    alert(resultOfTheGame);
   }
 }
 

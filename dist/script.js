@@ -6,7 +6,7 @@
 //    1.3. define who goes first;
 //    1.4. using while loop ask users to take marches from table;
 //    1.5. the user who have to take the last of matches loose.
-// 2. one player game 
+// 2. one player game
 //    2. ask user to choose level of difficulty;
 //    2.1. if it's easy:
 //       2.1.1 inside while loop computer takes randome quantity of matches from 1 to 3;
@@ -16,14 +16,57 @@
 //       2.2.1. inside while loop computer takes randome quantity of matches from 1 to 3;
 //       2.2.2. user can take from 1 to 3 matches;
 //       2.2.3. ????????????
-//    2.3. 
+//    2.3.
+//     4. ask player/s for quantity of matches and save it in variable matches
 function nimGame() {
-    var numberOfPlayers = prompt('How many players are playing?');
-    switch (numberOfPlayers) {
-        case '1':
-        case '2':
+    var matches = 13;
+    function howManyPlayers() {
+        var numberOfPlayers = prompt("How many players are playing?");
+        console.log(numberOfPlayers, typeof numberOfPlayers);
+        switch (numberOfPlayers) {
+            case "1":
+                console.log("1");
+                break;
+            case "2":
+                console.log("2");
+                twoPlayerGame();
+                break;
+            default:
+                howManyPlayers();
+                break;
+        }
     }
+    howManyPlayers();
+    //
     function twoPlayerGame() {
-        var first;
+        var quantityOfMatches = Number(prompt("How many matches are in the game?"));
+        if (isNaN(quantityOfMatches) || quantityOfMatches <= 0) {
+            twoPlayerGame();
+        }
+        else {
+            matches = quantityOfMatches;
+        }
+        var firstPlayerName = prompt("Please enter the name of the first player:");
+        var secondPlayerName = prompt("Please enter the name of the second player:");
+        var turn = Math.floor(Math.random() * 2 + 1);
+        var userTurn = turn === 1 ? firstPlayerName : secondPlayerName;
+        while (matches > 1) {
+            alert("Now it's turn of player " + userTurn + ". Matches left " + matches + ".");
+            var userTakesMatches = Number(prompt("How many matches " + userTurn + " wants to take?"));
+            if (userTakesMatches <= 3 && userTakesMatches >= 1) {
+                matches = matches - userTakesMatches;
+                if (userTurn === firstPlayerName) {
+                    userTurn = secondPlayerName;
+                }
+                else {
+                    userTurn = firstPlayerName;
+                }
+            }
+        }
+        if (matches === 1) {
+            var winner = userTurn === firstPlayerName ? secondPlayerName : firstPlayerName;
+            alert(winner + " wins!");
+        }
     }
 }
+nimGame();

@@ -116,6 +116,19 @@ function onePlayerGameMedium() {
             var userTakesMatches = Math.floor(Math.random() * 3 + 1);
             alert("Computer takes " + userTakesMatches + " matches.");
             matches = matches - userTakesMatches;
+            turnOfComputer += 1;
+            userTurn = "gamer";
+        }
+        else if (userTurn === "computer" && turnOfComputer > 1) {
+            if (matches > 4) {
+                userTakesMatches = matches % 4 !== 0 ? matches % 4 : 1;
+            }
+            else if (matches <= 4) {
+                userTakesMatches = matches - 1;
+            }
+            alert("Computer takes " + userTakesMatches + " matches.");
+            matches = matches - userTakesMatches;
+            turnOfComputer += 1;
             userTurn = "gamer";
         }
         else {

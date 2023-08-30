@@ -91,6 +91,7 @@ function onePlayerGame() {
       break;
     case "3":
     case "impossible":
+      onePlayerGameImpossible();
       // console.log('impossible level');
       break;
     default:
@@ -188,6 +189,57 @@ function onePlayerGameMedium() {
     const resultOfTheGame =
       userTurn === "computer" ? "You are win!" : "You are loose.";
     alert(resultOfTheGame);
+  }
+}
+
+function onePlayerGameImpossible() {
+  let quantityOfMatches: number = Number(
+    prompt("How many matches are in the game?")
+  );
+
+  if (isNaN(quantityOfMatches) || quantityOfMatches <= 0) {
+    onePlayerGameEasy();
+  } else {
+    matches = quantityOfMatches;
+  }
+
+  let userTurn = "gamer";
+
+  while (matches > 1) {
+    alert(`Now it's turn of player ${userTurn}. Matches left ${matches}.`);
+ 
+    if (userTurn === "computer") {
+      userTurn = "gamer";
+        if (matches > 4) {
+          userTakesMatches = matches % 4 !== 0 ? matches % 4 : 1;
+        } else if (matches <= 4) {
+          userTakesMatches = matches - 1;
+          alert(`Computer takes ${userTakesMatches} matches. And Win!`);
+          break;
+
+        }
+        alert(`Computer takes ${userTakesMatches} matches.`);
+        matches = matches - userTakesMatches;
+        userTurn = "gamer";
+        continue;
+      } 
+
+      if (userTurn === 'gamer'){
+        let userTakesMatches: number = Number(
+            prompt("How many matches do you want to take?");
+
+            if (userTakesMatches <= 3 && userTakesMatches >= 1) {
+                matches = matches - userTakesMatches;
+                userTurn = "computer";
+              }
+
+    }
+
+    if (matches === 1) {
+      const resultOfTheGame =
+        userTurn === "computer" ? "You are win!" : "You are loose.";
+      alert(resultOfTheGame);
+    }
   }
 }
 
